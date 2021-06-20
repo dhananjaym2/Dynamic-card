@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/vertical_list_background"
+    android:backgroundTint="@color/cardview_dark_background">
+
+    <ImageView
+        android:id="@+id/imageInSmallCardWithArrow"
+        android:layout_width="@dimen/smallCardWithArrowImageSize"
+        android:layout_height="@dimen/smallCardWithArrowImageSize"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        tools:src="@mipmap/ic_launcher" />
+</RelativeLayout>

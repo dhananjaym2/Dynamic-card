@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="errorTitleFontSize">18sp</dimen>
+    <dimen name="errorMessageFontSize">15sp</dimen>
+    <dimen name="errorTitleMarginTop">24dp</dimen>
+    <dimen name="errorMessageMarginTop">8dp</dimen>
+    <dimen name="messageTextViewOnListPadding">15dp</dimen>
+    <dimen name="messageTextViewOnListTextSize">18sp</dimen>
+    <dimen name="list_background_top_corner_radius">12dp</dimen>
+    <dimen name="smallCardWithArrowImageSize">30dp</dimen>
+</resources>
