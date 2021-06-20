@@ -16,10 +16,10 @@ data class Cards(
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.readParcelable(Formatted_title::class.java.classLoader) as Formatted_title,
+        parcel.readParcelable<Formatted_title>(Formatted_title::class.java.classLoader) as Formatted_title,
         parcel.readString(),
-        parcel.readParcelable(Formatted_description::class.java.classLoader) as Formatted_description,
-        parcel.readParcelable(Icon::class.java.classLoader) as Icon,
+        parcel.readParcelable<Formatted_description>(Class.forName(Formatted_description::class.java.simpleName).classLoader) as Formatted_description,
+        parcel.readParcelable<Icon>(Icon::class.java.classLoader) as Icon,
         parcel.readString()
     ) {
     }
