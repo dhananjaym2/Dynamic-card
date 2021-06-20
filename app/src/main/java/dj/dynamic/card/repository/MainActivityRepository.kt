@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import dj.dynamic.card.model.api.CardGroupApiResponse
 import dj.dynamic.card.retrofit.RetrofitClient
-import dj.dynamic.card.view.adapter.VerticalRecyclerViewAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

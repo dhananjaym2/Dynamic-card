@@ -9,6 +9,7 @@ data class Card_groups(
     @SerializedName("name") val name: String?,
     @SerializedName("design_type") val design_type: String?,
     @SerializedName("cards") val cards: List<Cards>,
+    @SerializedName("height") val height: Int = 0,
     @SerializedName("is_scrollable") val is_scrollable: Boolean
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -16,6 +17,7 @@ data class Card_groups(
         parcel.readString(),
         parcel.readString(),
         parcel.createTypedArrayList(Cards)!!,
+        parcel.readInt(),
         parcel.readByte() != 0.toByte()
     ) {
     }
@@ -25,6 +27,7 @@ data class Card_groups(
         parcel.writeString(name)
         parcel.writeString(design_type)
         parcel.writeTypedList(cards)
+        parcel.writeInt(height)
         parcel.writeByte(if (is_scrollable) 1 else 0)
     }
 

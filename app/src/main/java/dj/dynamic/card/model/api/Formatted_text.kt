@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-data class Formatted_title(
+data class Formatted_text(
     @SerializedName("text") val text: String?,
     @SerializedName("entities") val entities: List<Entities>
 ) : Parcelable {
@@ -23,12 +23,12 @@ data class Formatted_title(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Formatted_title> {
-        override fun createFromParcel(parcel: Parcel): Formatted_title {
-            return Formatted_title(parcel)
+    companion object CREATOR : Parcelable.Creator<Formatted_text> {
+        override fun createFromParcel(parcel: Parcel): Formatted_text {
+            return Formatted_text(parcel)
         }
 
-        override fun newArray(size: Int): Array<Formatted_title?> {
+        override fun newArray(size: Int): Array<Formatted_text?> {
             return arrayOfNulls(size)
         }
     }

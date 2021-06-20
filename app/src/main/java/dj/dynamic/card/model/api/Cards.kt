@@ -7,20 +7,28 @@ import com.google.gson.annotations.SerializedName
 data class Cards(
     @SerializedName("name") val name: String?,
     @SerializedName("title") val title: String?,
-    @SerializedName("formatted_title") val formatted_title: Formatted_title,
+    @SerializedName("formatted_title") val formatted_title: Formatted_text,
     @SerializedName("description") val description: String?,
-    @SerializedName("formatted_description") val formatted_description: Formatted_description,
+    @SerializedName("formatted_description") val formatted_description: Formatted_text,
     @SerializedName("icon") val icon: Icon,
-    @SerializedName("url") val url: String?
+    @SerializedName("url") val url: String?,
+    @SerializedName("bg_image") val bg_image: String?,
+    @SerializedName("bg_color") val bg_color: String?,
+    @SerializedName("bg_gradient") val bg_gradient: Bg_gradient?,
+    @SerializedName("cta") val cta: CallToAction?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.readParcelable<Formatted_title>(Formatted_title::class.java.classLoader) as Formatted_title,
+        parcel.readParcelable<Formatted_text>(Formatted_text::class.java.classLoader) as Formatted_text,
         parcel.readString(),
-        parcel.readParcelable<Formatted_description>(Class.forName(Formatted_description::class.java.simpleName).classLoader) as Formatted_description,
+        parcel.readParcelable<Formatted_text>(Formatted_text::class.java.classLoader) as Formatted_text,
         parcel.readParcelable<Icon>(Icon::class.java.classLoader) as Icon,
-        parcel.readString()
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readParcelable<Bg_gradient>(Bg_gradient::class.java.classLoader),
+        parcel.readParcelable<CallToAction>(CallToAction::class.java.classLoader)
     ) {
     }
 
