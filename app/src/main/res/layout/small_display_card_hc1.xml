@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/vertical_list_background">
+
+    <ImageView
+        android:id="@+id/leftImageInHC1"
+        android:layout_width="@dimen/smallCardWithArrowImageSize"
+        android:layout_height="@dimen/smallCardWithArrowImageSize"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/horizontalMarginOfContentFromCard"
+        android:contentDescription="@string/imageContentDescription"
+        tools:src="@drawable/ic_outline_image_24" />
+
+    <LinearLayout
+        android:id="@+id/childContainerHC1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/marginFromImageToTextForSmallCard"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="@dimen/horizontalMarginOfContentFromCard"
+        android:layout_marginBottom="15dp"
+        android:layout_toEndOf="@+id/leftImageInHC1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titleTextHC1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/smallCardWithArrowTextSize"
+            android:textStyle="bold"
+            tools:text="titleTextHC1" />
+
+        <TextView
+            android:id="@+id/descriptionTextHC1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacingTitleAndDescriptionHC1"
+            android:textColor="@color/medium_black"
+            android:textSize="@dimen/smallCardWithArrowTextSize"
+            tools:text="descriptionTextHC1" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -45,10 +45,10 @@ class CardListFragment : Fragment() {
         activity?.let { activityContext ->
             listFromApi?.card_groups?.let { listData ->
                 recyclerAdapter = VerticalRecyclerViewAdapter(activityContext, listData)
+                verticalRecyclerView.layoutManager = LinearLayoutManager(activity)
+                verticalRecyclerView.adapter = recyclerAdapter
             }//TODO error handling
         }
-        verticalRecyclerView.layoutManager = LinearLayoutManager(activity)
-        verticalRecyclerView.adapter = recyclerAdapter
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

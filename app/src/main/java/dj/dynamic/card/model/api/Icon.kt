@@ -6,16 +6,22 @@ import com.google.gson.annotations.SerializedName
 
 data class Icon(
     @SerializedName("image_type") val image_type: String?,
+    @SerializedName("asset_type") val asset_type: String?,
+    @SerializedName("aspect_ratio") val aspect_ratio: Double = 1.0,
     @SerializedName("image_url") val image_url: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
+        parcel.readString(),
+        parcel.readDouble(),
         parcel.readString()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(image_type)
+        parcel.writeString(asset_type)
+        parcel.writeDouble(aspect_ratio)
         parcel.writeString(image_url)
     }
 

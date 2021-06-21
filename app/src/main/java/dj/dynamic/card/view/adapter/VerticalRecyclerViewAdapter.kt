@@ -2,41 +2,25 @@ package dj.dynamic.card.view.adapter
 
 import android.app.Activity
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import dj.dynamic.card.constant.DesignType
+import dj.dynamic.card.R
 import dj.dynamic.card.model.api.Card_groups
+import java.lang.ref.WeakReference
 
-class VerticalRecyclerViewAdapter(activityContext: Activity, var cardGroups: List<Card_groups>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+class VerticalRecyclerViewAdapter(
+    activityContext: Activity, private var cardGroups: List<Card_groups>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val logTag: String = VerticalRecyclerViewAdapter::class.java.simpleName
+    private var weakActivityContext: WeakReference<Activity> = WeakReference(activityContext)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var itemView: View
-        when (viewType) {
-            DesignType.SMALL_DISPLAY_CARD_HC1.ordinal -> {
-                //TODO create run time RV
-            }
-            DesignType.BIG_DISPLAY_CARD_HC3.ordinal -> {
-
-            }
-            DesignType.IMAGE_CARD_HC5.ordinal -> {
-
-            }
-            DesignType.SMALL_CARD_WITH_ARROW_HC6.ordinal -> {
-
-            }
-            DesignType.DYNAMIC_WIDTH_CARD_HC9.ordinal -> {
-
-            }
-            DesignType.UNKNOWN.ordinal -> {
-                Log.e(logTag, "DesignType.UNKNOWN can't show data at $viewType.")
-
-            }
-        }
-        return itemView
+        val itemView: View = LayoutInflater.from(weakActivityContext.get())
+            .inflate(R.layout.vertical_row_item, parent, false)
+        return VerticalViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
@@ -44,56 +28,24 @@ class VerticalRecyclerViewAdapter(activityContext: Activity, var cardGroups: Lis
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
-//        when (cardGroups[position].design_type) {
-//            "HC1" -> {
-//                return DesignType.SMALL_DISPLAY_CARD_HC1.ordinal
-//            }
-//            "HC3" -> {
-//                return DesignType.BIG_DISPLAY_CARD_HC3.ordinal
-//            }
-//            "HC5" -> {
-//                return DesignType.IMAGE_CARD_HC5.ordinal
-//            }
-//            "HC6" -> {
-//                return DesignType.SMALL_CARD_WITH_ARROW_HC6.ordinal
-//            }
-//            "HC9" -> {
-//                return DesignType.DYNAMIC_WIDTH_CARD_HC9.ordinal
-//            }
-//            else -> {
-//                Log.e(logTag, "DesignType.UNKNOWN can't show data at $position.")
-//                return DesignType.UNKNOWN.ordinal
-//            }
-//        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        when (cardGroups[position].design_type) {
-            "HC1" -> {
-                return DesignType.SMALL_DISPLAY_CARD_HC1.ordinal
-            }
-            "HC3" -> {
-                return DesignType.BIG_DISPLAY_CARD_HC3.ordinal
-            }
-            "HC5" -> {
-                return DesignType.IMAGE_CARD_HC5.ordinal
-            }
-            "HC6" -> {
-                return DesignType.SMALL_CARD_WITH_ARROW_HC6.ordinal
-            }
-            "HC9" -> {
-                return DesignType.DYNAMIC_WIDTH_CARD_HC9.ordinal
-            }
-            else -> {
-                Log.e(logTag, "DesignType.UNKNOWN can't show data at $position.")
-                return DesignType.UNKNOWN.ordinal
-            }
+        val view = holder as VerticalViewHolder
+        //var layoutParams = view.horizontalRecyclerView.layoutParams
+        Log.v(logTag, "onBindViewHolder at $position")
+        view.horizontalRecyclerView.layoutParams.height = if (cardGroups[position].height != 0) {
+            cardGroups[position].height
+        } else {
+            100
         }
+        val horizontalAdapter =
+            HorizontalRecyclerView(weakActivityContext.get(), cardGroups[position])
+        view.horizontalRecyclerView.layoutManager = LinearLayoutManager(weakActivityContext.get())
+        view.horizontalRecyclerView.adapter = horizontalAdapter
+        Log.v(logTag, "onBindViewHolder at $position after the adapter is set.")
     }
 
-    class SmallDisplayCardVHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+    class VerticalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var horizontalRecyclerView: RecyclerView =
+            itemView.findViewById(R.id.horizontalRecyclerView)
     }
 
 }

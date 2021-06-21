@@ -8,4 +8,9 @@
     <dimen name="messageTextViewOnListTextSize">18sp</dimen>
     <dimen name="list_background_top_corner_radius">12dp</dimen>
     <dimen name="smallCardWithArrowImageSize">30dp</dimen>
+    <dimen name="smallCardWithArrowTextSize">14sp</dimen>
+    <dimen name="smallCardWithArrowEndMargin">20dp</dimen>
+    <dimen name="spacingTitleAndDescriptionHC1">1dp</dimen>
+    <dimen name="horizontalMarginOfContentFromCard">20dp</dimen>
+    <dimen name="marginFromImageToTextForSmallCard">15dp</dimen>
 </resources>

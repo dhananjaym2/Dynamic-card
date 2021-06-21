@@ -11,4 +11,5 @@
     <color name="errorTitleColor">#4A4A4A</color>
     <color name="verticalRecyclerBackground">#F7F6F3</color>
     <color name="neutralMessageColor">#929292</color>
+    <color name="medium_black">#B91B1B1E</color>
 </resources>

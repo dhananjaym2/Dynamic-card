@@ -9,10 +9,3 @@ enum class DesignType {
 
     UNKNOWN
 }
-/*public enum DesignTypes {
-    SMALL_DISPLAY_CARD("HC1"),
-    BIG_DISPLAY_CARD("HC3"),
-    IMAGE_CARD("HC5"),
-    SMALL_CARD_WITH_ARROW("HC6"),
-DYNAMIC_WIDTH_CARD("HC9")
-}*/

@@ -12,10 +12,10 @@ data class Cards(
     @SerializedName("formatted_description") val formatted_description: Formatted_text,
     @SerializedName("icon") val icon: Icon,
     @SerializedName("url") val url: String?,
-    @SerializedName("bg_image") val bg_image: String?,
+    @SerializedName("bg_image") val bg_image: Icon?,
     @SerializedName("bg_color") val bg_color: String?,
     @SerializedName("bg_gradient") val bg_gradient: Bg_gradient?,
-    @SerializedName("cta") val cta: CallToAction?
+    @SerializedName("cta") val cta: List<CallToAction>?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -25,10 +25,10 @@ data class Cards(
         parcel.readParcelable<Formatted_text>(Formatted_text::class.java.classLoader) as Formatted_text,
         parcel.readParcelable<Icon>(Icon::class.java.classLoader) as Icon,
         parcel.readString(),
-        parcel.readString(),
+        parcel.readParcelable<Icon>(Icon::class.java.classLoader) as Icon,
         parcel.readString(),
         parcel.readParcelable<Bg_gradient>(Bg_gradient::class.java.classLoader),
-        parcel.readParcelable<CallToAction>(CallToAction::class.java.classLoader)
+        parcel.createTypedArrayList(CallToAction)!!
     ) {
     }
 
@@ -40,6 +40,10 @@ data class Cards(
         parcel.writeParcelable(formatted_description, flags)
         parcel.writeParcelable(icon, flags)
         parcel.writeString(url)
+        parcel.writeParcelable(bg_image, flags)
+        parcel.writeString(bg_color)
+        parcel.writeParcelable(bg_gradient, flags)
+        parcel.writeTypedList(cta)
     }
 
     override fun describeContents(): Int {

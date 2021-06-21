@@ -3,16 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/vertical_list_background"
-    android:backgroundTint="@color/cardview_dark_background">
+    android:background="@drawable/vertical_list_background">
 
     <ImageView
         android:id="@+id/imageInSmallCardWithArrow"
         android:layout_width="@dimen/smallCardWithArrowImageSize"
         android:layout_height="@dimen/smallCardWithArrowImageSize"
         android:layout_centerVertical="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginStart="@dimen/horizontalMarginOfContentFromCard"
+        android:layout_marginTop="@dimen/marginFromImageToTextForSmallCard"
+        android:layout_marginBottom="@dimen/marginFromImageToTextForSmallCard"
+        android:contentDescription="@string/imageContentDescription"
         tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/textSmallCardWithArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/marginFromImageToTextForSmallCard"
+        android:layout_marginEnd="@dimen/marginFromImageToTextForSmallCard"
+        android:layout_toStartOf="@+id/imageRightArrowSmallCardWithArrow"
+        android:layout_toEndOf="@+id/imageInSmallCardWithArrow"
+        android:textColor="@color/black"
+        android:textSize="@dimen/smallCardWithArrowTextSize"
+        tools:text="textSmallCardWithArrow" />
+
+    <ImageView
+        android:id="@+id/imageRightArrowSmallCardWithArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/horizontalMarginOfContentFromCard"
+        android:contentDescription="@string/imageContentDescription"
+        android:src="@drawable/ic_arrow_black_right_pointing" />
 </RelativeLayout>
