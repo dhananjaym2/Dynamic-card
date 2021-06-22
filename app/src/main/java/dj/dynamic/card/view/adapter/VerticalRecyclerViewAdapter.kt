@@ -36,11 +36,13 @@ class VerticalRecyclerViewAdapter(
         } else {
             100
         }
-        val horizontalAdapter =
-            HorizontalRecyclerView(weakActivityContext.get(), cardGroups[position])
-        view.horizontalRecyclerView.layoutManager = LinearLayoutManager(weakActivityContext.get())
-        view.horizontalRecyclerView.adapter = horizontalAdapter
-        Log.v(logTag, "onBindViewHolder at $position after the adapter is set.")
+        view.horizontalRecyclerView.layoutManager =
+            LinearLayoutManager(weakActivityContext.get(), LinearLayoutManager.HORIZONTAL, false)
+        weakActivityContext.get()?.let { activityContext ->
+            val horizontalAdapter = HorizontalRecyclerView(activityContext, cardGroups[position])
+            view.horizontalRecyclerView.adapter = horizontalAdapter
+            Log.v(logTag, "onBindViewHolder at $position after the adapter is set.")
+        }
     }
 
     class VerticalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -15,7 +15,7 @@ import dj.dynamic.card.model.api.Card_groups
 import dj.dynamic.card.model.api.Cards
 import java.lang.ref.WeakReference
 
-class HorizontalRecyclerView(activityContext: Activity?, var cardGroups: Card_groups) :
+class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_groups) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val logTag: String = VerticalRecyclerViewAdapter::class.java.simpleName
     private var cardGroupsList: List<Cards> = cardGroups.cards
