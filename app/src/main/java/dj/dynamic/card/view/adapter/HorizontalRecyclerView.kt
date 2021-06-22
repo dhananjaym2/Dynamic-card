@@ -77,7 +77,12 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                     cardGroupsList[position].icon.image_url ?: "", viewHolder.leftImageInHC1
                 )
                 viewHolder.titleTextHC1.text = cardGroupsList[position].title
-                viewHolder.descriptionTextHC1.text = cardGroupsList[position].description
+                if (!TextUtils.isEmpty(cardGroupsList[position].description)) {
+                    viewHolder.descriptionTextHC1.visibility = View.VISIBLE
+                    viewHolder.descriptionTextHC1.text = cardGroupsList[position].description
+                } else {
+                    viewHolder.descriptionTextHC1.visibility = View.GONE
+                }
                 weakActivityContext.get()?.let { activity ->
                     viewHolder.rootLayoutHC1.backgroundTintList =
                         getDrawableWithTint(activity, cardGroupsList[position].bg_color)
