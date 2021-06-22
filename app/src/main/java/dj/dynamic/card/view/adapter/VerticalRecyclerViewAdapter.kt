@@ -29,7 +29,6 @@ class VerticalRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val view = holder as VerticalViewHolder
-        //var layoutParams = view.horizontalRecyclerView.layoutParams
         Log.v(logTag, "onBindViewHolder at $position")
         view.horizontalRecyclerView.layoutParams.height = if (cardGroups[position].height != 0) {
             cardGroups[position].height
