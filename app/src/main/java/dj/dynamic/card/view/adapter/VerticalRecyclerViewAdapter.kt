@@ -34,7 +34,7 @@ class VerticalRecyclerViewAdapter(
         view.horizontalRecyclerView.layoutParams.height = if (cardGroups[position].height != 0) {
             cardGroups[position].height
         } else {
-            100
+            ViewGroup.LayoutParams.WRAP_CONTENT
         }
         view.horizontalRecyclerView.layoutManager =
             LinearLayoutManager(weakActivityContext.get(), LinearLayoutManager.HORIZONTAL, false)

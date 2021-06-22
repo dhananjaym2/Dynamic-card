@@ -46,6 +46,7 @@ class CardListFragment : Fragment() {
             listFromApi?.card_groups?.let { listData ->
                 recyclerAdapter = VerticalRecyclerViewAdapter(activityContext, listData)
                 verticalRecyclerView.layoutManager = LinearLayoutManager(activity)
+                verticalRecyclerView.setHasFixedSize(false)
                 verticalRecyclerView.adapter = recyclerAdapter
             }//TODO error handling
         }
