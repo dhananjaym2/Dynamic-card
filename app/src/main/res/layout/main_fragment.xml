@@ -24,7 +24,7 @@
         android:id="@+id/messageTextViewOnList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="casual"
         android:gravity="center"
         android:paddingStart="@dimen/messageTextViewOnListPadding"
         android:paddingEnd="@dimen/messageTextViewOnListPadding"
