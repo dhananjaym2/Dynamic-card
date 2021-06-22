@@ -87,6 +87,9 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                     viewHolder.rootLayoutHC1.backgroundTintList =
                         getDrawableWithTint(activity, cardGroupsList[position].bg_color)
                 }
+                viewHolder.rootLayoutHC1.layoutParams.width =
+                    if (cardGroups.is_scrollable) ViewGroup.LayoutParams.WRAP_CONTENT
+                    else ViewGroup.LayoutParams.MATCH_PARENT
             }
             "HC6" -> {
                 val viewHolder = holder as SmallCardWithArrowHc6
