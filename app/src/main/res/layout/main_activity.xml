@@ -5,16 +5,11 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
     tools:context=".view.activity.MainActivity">
 
     <FrameLayout
         android:id="@+id/containerFrameLayout"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
