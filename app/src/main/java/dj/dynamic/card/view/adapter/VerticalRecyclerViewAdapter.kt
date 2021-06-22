@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dj.dynamic.card.R
 import dj.dynamic.card.model.api.Card_groups
+import dj.dynamic.card.util.ui.recycler_view.HorizontalSpaceItemDecoration
 import java.lang.ref.WeakReference
 
 class VerticalRecyclerViewAdapter(
@@ -30,14 +31,22 @@ class VerticalRecyclerViewAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val view = holder as VerticalViewHolder
         Log.v(logTag, "onBindViewHolder at $position")
-        view.horizontalRecyclerView.layoutParams.height = if (cardGroups[position].height != 0) {
-            cardGroups[position].height
-        } else {
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        }
+        view.horizontalRecyclerView.layoutParams.height =
+            if (cardGroups[position].height != 0) {
+                cardGroups[position].height
+            } else {
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            }
+
         view.horizontalRecyclerView.layoutManager =
             LinearLayoutManager(weakActivityContext.get(), LinearLayoutManager.HORIZONTAL, false)
         weakActivityContext.get()?.let { activityContext ->
+            val itemDecoration = HorizontalSpaceItemDecoration(
+                activityContext.resources.getDimension(R.dimen.spacing_between_vertical_items)
+                    .toInt()
+            )
+            view.horizontalRecyclerView.addItemDecoration(itemDecoration)
+
             val horizontalAdapter = HorizontalRecyclerView(activityContext, cardGroups[position])
             view.horizontalRecyclerView.adapter = horizontalAdapter
             Log.v(logTag, "onBindViewHolder at $position after the adapter is set.")

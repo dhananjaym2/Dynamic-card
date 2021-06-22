@@ -1,12 +1,19 @@
 package dj.dynamic.card.view.adapter
 
 import android.app.Activity
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import dj.dynamic.card.R
@@ -70,7 +77,11 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                     cardGroupsList[position].icon.image_url ?: "", viewHolder.leftImageInHC1
                 )
                 viewHolder.titleTextHC1.text = cardGroupsList[position].title
-                viewHolder.descriptionTextHC1.text = cardGroupsList[position].title
+                viewHolder.descriptionTextHC1.text = cardGroupsList[position].description
+                weakActivityContext.get()?.let { activity ->
+                    viewHolder.rootLayoutHC1.backgroundTintList =
+                        getDrawableWithTint(activity, cardGroupsList[position].bg_color)
+                }
             }
             "HC6" -> {
                 val viewHolder = holder as SmallCardWithArrowHc6
@@ -79,7 +90,23 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                     viewHolder.imageInSmallCardWithArrow
                 )
                 viewHolder.textSmallCardWithArrow.text = cardGroupsList[position].title
+                weakActivityContext.get()?.let { activity ->
+                    viewHolder.rootLayoutHC6.backgroundTintList =
+                        getDrawableWithTint(activity, cardGroupsList[position].bg_color)
+                }
             }
+        }
+    }
+
+    private fun getDrawableWithTint(context: Context, color: String?): ColorStateList? {
+        return if (!TextUtils.isEmpty(color)) {
+            @ColorInt val colorInt: Int = Color.parseColor(color)
+            ColorStateList(arrayOf(intArrayOf()), intArrayOf(colorInt))
+        } else {// default
+            ColorStateList(
+                arrayOf(intArrayOf()),
+                intArrayOf(ContextCompat.getColor(context, R.color.white))
+            )
         }
     }
 
@@ -89,8 +116,8 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
     }
 
     class SmallDisplayCardHC1(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var leftImageInHC1: ImageView =
-            itemView.findViewById(R.id.leftImageInHC1)
+        var rootLayoutHC1: RelativeLayout = itemView.findViewById(R.id.rootLayoutHC1)
+        var leftImageInHC1: ImageView = itemView.findViewById(R.id.leftImageInHC1)
         var titleTextHC1: TextView = itemView.findViewById(R.id.titleTextHC1)
         var descriptionTextHC1: TextView = itemView.findViewById(R.id.descriptionTextHC1)
     }
@@ -102,6 +129,7 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
     }
 
     class SmallCardWithArrowHc6(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var rootLayoutHC6: RelativeLayout = itemView.findViewById(R.id.rootLayoutHC6)
         var imageInSmallCardWithArrow: ImageView =
             itemView.findViewById(R.id.imageInSmallCardWithArrow)
         var textSmallCardWithArrow: TextView =

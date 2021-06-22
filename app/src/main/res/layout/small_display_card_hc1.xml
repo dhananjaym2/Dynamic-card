@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayoutHC1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/vertical_list_background">
+    android:background="@drawable/card_background_rounded_corners">
 
     <ImageView
         android:id="@+id/leftImageInHC1"
@@ -15,7 +16,7 @@
         tools:src="@drawable/ic_outline_image_24" />
 
     <LinearLayout
-        android:id="@+id/childContainerHC1"
+        android:id="@+id/childTextContainerHC1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
