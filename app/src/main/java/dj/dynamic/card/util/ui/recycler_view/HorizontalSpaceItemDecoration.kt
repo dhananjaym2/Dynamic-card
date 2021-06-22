@@ -10,6 +10,7 @@ class HorizontalSpaceItemDecoration(private val horizontalSpaceHeight: Int) :
     override fun getItemOffsets(
         outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
     ) {
-        outRect.right = horizontalSpaceHeight
+        outRect.left = horizontalSpaceHeight / 2
+        outRect.right = horizontalSpaceHeight / 2
     }
 }
