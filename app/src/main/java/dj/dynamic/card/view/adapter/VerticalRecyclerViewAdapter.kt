@@ -41,10 +41,21 @@ class VerticalRecyclerViewAdapter(
         view.horizontalRecyclerView.layoutManager =
             LinearLayoutManager(weakActivityContext.get(), LinearLayoutManager.HORIZONTAL, false)
         weakActivityContext.get()?.let { activityContext ->
-            val itemDecoration = HorizontalSpaceItemDecoration(
+            val spacingBetweenIndividualHorizontalCards =
                 activityContext.resources.getDimension(R.dimen.spacing_between_vertical_items)
                     .toInt()
-            )
+
+            /**
+             * If the item/card in the current cardGroups item is_scrollable is true then the right
+             * side spacing is not required.
+             * Whereas left side spacing is required irrespective of is_scrollable.
+             */
+            val itemDecoration =
+                HorizontalSpaceItemDecoration(
+                    spacingBetweenIndividualHorizontalCards,
+                    if (cardGroups[position].is_scrollable) 0
+                    else spacingBetweenIndividualHorizontalCards
+                )
             view.horizontalRecyclerView.addItemDecoration(itemDecoration)
 
             val horizontalAdapter = HorizontalRecyclerView(activityContext, cardGroups[position])
