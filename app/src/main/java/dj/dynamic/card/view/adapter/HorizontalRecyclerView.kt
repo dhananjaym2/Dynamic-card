@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import dj.dynamic.card.R
-import dj.dynamic.card.constant.DesignType
 import dj.dynamic.card.model.api.Card_groups
 import dj.dynamic.card.model.api.Cards
 import java.lang.ref.WeakReference
@@ -31,27 +30,27 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(weakActivityContext.get())
         when (viewType) {//inflate different layout based on this value
-            DesignType.SMALL_DISPLAY_CARD_HC1.ordinal -> {
+            DesignTypeEnum.SMALL_DISPLAY_CARD_HC1.ordinal -> {
                 val itemView: View =
                     inflater.inflate(R.layout.small_display_card_hc1, parent, false)
                 return SmallDisplayCardHC1(itemView)
             }
-            DesignType.BIG_DISPLAY_CARD_HC3.ordinal -> {
+            DesignTypeEnum.BIG_DISPLAY_CARD_HC3.ordinal -> {
                 val itemView: View =
                     inflater.inflate(R.layout.big_display_card_hc3, parent, false)
                 return BigDisplayCardHC3(itemView)
             }
-            DesignType.IMAGE_CARD_HC5.ordinal -> {
+            DesignTypeEnum.IMAGE_CARD_HC5.ordinal -> {
                 val itemView: View =
                     inflater.inflate(R.layout.image_card_hc5, parent, false)
                 return ImageCardHC5(itemView)
             }
-            DesignType.SMALL_CARD_WITH_ARROW_HC6.ordinal -> {
+            DesignTypeEnum.SMALL_CARD_WITH_ARROW_HC6.ordinal -> {
                 val itemView: View =
                     inflater.inflate(R.layout.small_card_with_arrow_hc6, parent, false)
                 return SmallCardWithArrowHc6(itemView)
             }
-            DesignType.DYNAMIC_WIDTH_CARD_HC9.ordinal -> {
+            DesignTypeEnum.DYNAMIC_WIDTH_CARD_HC9.ordinal -> {
                 val itemView: View =
                     inflater.inflate(R.layout.dynamic_width_card_hc9, parent, false)
                 return DynamicWidthCardHC9(itemView)
@@ -174,28 +173,13 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
         }
     }
 
-    private fun getLayoutFile(design_type: String?): Int {
-        when (design_type) {
-            "HC1" -> {
-                return DesignType.SMALL_DISPLAY_CARD_HC1.ordinal
-            }
-            "HC3" -> {
-                return DesignType.BIG_DISPLAY_CARD_HC3.ordinal
-            }
-            "HC5" -> {
-                return DesignType.IMAGE_CARD_HC5.ordinal
-            }
-            "HC6" -> {
-                return R.layout.small_card_with_arrow_hc6
-            }
-            "HC9" -> {
-                return DesignType.DYNAMIC_WIDTH_CARD_HC9.ordinal
-            }
-            else -> {
-                Log.e(logTag, "DesignType.UNKNOWN can't show data for $design_type.")
-                return DesignType.UNKNOWN.ordinal
-            }
-        }
+    private enum class DesignTypeEnum {
+        SMALL_DISPLAY_CARD_HC1,
+        BIG_DISPLAY_CARD_HC3,
+        IMAGE_CARD_HC5,
+        SMALL_CARD_WITH_ARROW_HC6,
+        DYNAMIC_WIDTH_CARD_HC9,
+
+        UNKNOWN_CARD
     }
 }
-
