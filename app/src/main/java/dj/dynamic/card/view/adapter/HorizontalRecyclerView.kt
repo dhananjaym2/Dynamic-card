@@ -17,6 +17,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import dj.dynamic.card.R
+import dj.dynamic.card.constant.DesignTypeConstants.BIG_DISPLAY_CARD_HC3
+import dj.dynamic.card.constant.DesignTypeConstants.DYNAMIC_WIDTH_CARD_HC9
+import dj.dynamic.card.constant.DesignTypeConstants.IMAGE_CARD_HC5
+import dj.dynamic.card.constant.DesignTypeConstants.SMALL_CARD_WITH_ARROW_HC6
+import dj.dynamic.card.constant.DesignTypeConstants.SMALL_DISPLAY_CARD_HC1
 import dj.dynamic.card.model.api.Card_groups
 import dj.dynamic.card.model.api.Cards
 import java.lang.ref.WeakReference
@@ -151,24 +156,24 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
 
     override fun getItemViewType(position: Int): Int {
         when (cardGroups.design_type) {
-            "HC1" -> {
-                return DesignType.SMALL_DISPLAY_CARD_HC1.ordinal
+            SMALL_DISPLAY_CARD_HC1 -> {
+                return DesignTypeEnum.SMALL_DISPLAY_CARD_HC1.ordinal
             }
-            "HC3" -> {
-                return DesignType.BIG_DISPLAY_CARD_HC3.ordinal
+            BIG_DISPLAY_CARD_HC3 -> {
+                return DesignTypeEnum.BIG_DISPLAY_CARD_HC3.ordinal
             }
-            "HC5" -> {
-                return DesignType.IMAGE_CARD_HC5.ordinal
+            IMAGE_CARD_HC5 -> {
+                return DesignTypeEnum.IMAGE_CARD_HC5.ordinal
             }
-            "HC6" -> {
-                return DesignType.SMALL_CARD_WITH_ARROW_HC6.ordinal
+            SMALL_CARD_WITH_ARROW_HC6 -> {
+                return DesignTypeEnum.SMALL_CARD_WITH_ARROW_HC6.ordinal
             }
-            "HC9" -> {
-                return DesignType.DYNAMIC_WIDTH_CARD_HC9.ordinal
+            DYNAMIC_WIDTH_CARD_HC9 -> {
+                return DesignTypeEnum.DYNAMIC_WIDTH_CARD_HC9.ordinal
             }
             else -> {
-                Log.e(logTag, "DesignType.UNKNOWN can't show data at $position.")
-                return DesignType.UNKNOWN.ordinal
+                Log.w(logTag, "design_type of card is unknown at $position in getItemViewType().")
+                return DesignTypeEnum.UNKNOWN_CARD.ordinal
             }
         }
     }
