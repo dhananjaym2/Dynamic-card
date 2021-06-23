@@ -46,8 +46,7 @@ class VerticalRecyclerViewAdapter(
                     .toInt()
 
             /**
-             * If the item/card in the current cardGroups item is_scrollable is true then the right
-             * side spacing is not required.
+             * If the current cardGroups item is_scrollable is true then the right side spacing is not required.
              * Whereas left side spacing is required irrespective of is_scrollable.
              */
             val itemDecoration =
