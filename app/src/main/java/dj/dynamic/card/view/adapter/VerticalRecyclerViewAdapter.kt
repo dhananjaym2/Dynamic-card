@@ -6,8 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import dj.dynamic.card.R
+import dj.dynamic.card.constant.DesignTypeConstants.BIG_DISPLAY_CARD_HC3
+import dj.dynamic.card.constant.DesignTypeConstants.IMAGE_CARD_HC5
+import dj.dynamic.card.constant.DesignTypeConstants.SMALL_CARD_WITH_ARROW_HC6
+import dj.dynamic.card.constant.DesignTypeConstants.SMALL_DISPLAY_CARD_HC1
 import dj.dynamic.card.model.api.Card_groups
 import dj.dynamic.card.util.ui.recycler_view.HorizontalSpaceItemDecoration
 import java.lang.ref.WeakReference
@@ -17,6 +22,10 @@ class VerticalRecyclerViewAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val logTag: String = VerticalRecyclerViewAdapter::class.java.simpleName
     private var weakActivityContext: WeakReference<Activity> = WeakReference(activityContext)
+    private val fullScreenWidthCardTypes = arrayOf(
+        SMALL_DISPLAY_CARD_HC1, BIG_DISPLAY_CARD_HC3,
+        IMAGE_CARD_HC5, SMALL_CARD_WITH_ARROW_HC6
+    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView: View = LayoutInflater.from(weakActivityContext.get())
@@ -40,6 +49,18 @@ class VerticalRecyclerViewAdapter(
 
         view.horizontalRecyclerView.layoutManager =
             LinearLayoutManager(weakActivityContext.get(), LinearLayoutManager.HORIZONTAL, false)
+
+        /**
+         * If the current cardGroups item is_scrollable is false and it's design type allows full
+         * screen width then use a View pager like swipe gesture and animation.
+         */
+        if (!cardGroups[position].is_scrollable &&
+            fullScreenWidthCardTypes.contains(cardGroups[position].design_type)
+        ) {
+            val snapHelper = PagerSnapHelper()
+            snapHelper.attachToRecyclerView(view.horizontalRecyclerView)
+        }
+
         weakActivityContext.get()?.let { activityContext ->
             val spacingBetweenIndividualHorizontalCards =
                 activityContext.resources.getDimension(R.dimen.spacing_between_vertical_items)
