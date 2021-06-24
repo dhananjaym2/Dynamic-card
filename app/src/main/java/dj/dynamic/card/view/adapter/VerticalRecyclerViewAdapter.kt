@@ -70,6 +70,7 @@ class VerticalRecyclerViewAdapter(
              * If the current cardGroups item is_scrollable is true then the right side spacing is not required.
              * Whereas left side spacing is required irrespective of is_scrollable.
              */
+            //TODO in case of HC5 irrespective of is_scrollable right padding should be there
             val itemDecoration =
                 HorizontalSpaceItemDecoration(
                     spacingBetweenIndividualHorizontalCards,

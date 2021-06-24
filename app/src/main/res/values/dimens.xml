@@ -16,4 +16,11 @@
     <dimen name="card_corner_radius">12dp</dimen>
     <dimen name="spacing_between_vertical_items">15dp</dimen>
     <dimen name="padding_start_vertical_recycler_view">20dp</dimen>
+    <dimen name="leftImageWidthHC5">75dp</dimen>
+    <dimen name="leftImageHeightHC5">109dp</dimen>
+    <dimen name="titleTextSizeHC1">21sp</dimen>
+    <dimen name="spacingTitleAndDescriptionHC5">4dp</dimen>
+    <dimen name="descriptionTextSizeHC5">15sp</dimen>
+    <dimen name="spacingBetweenColoredRectangleAndDescriptionHC5">7dp</dimen>
+    <dimen name="coloredRectangleWidthHC5">28dp</dimen>
 </resources>

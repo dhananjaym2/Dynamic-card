@@ -3,7 +3,9 @@ package dj.dynamic.card.view.adapter
 import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +18,8 @@ import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Picasso.LoadedFrom
+import com.squareup.picasso.Target
 import dj.dynamic.card.R
 import dj.dynamic.card.constant.DesignTypeConstants.BIG_DISPLAY_CARD_HC3
 import dj.dynamic.card.constant.DesignTypeConstants.DYNAMIC_WIDTH_CARD_HC9
@@ -24,6 +28,7 @@ import dj.dynamic.card.constant.DesignTypeConstants.SMALL_CARD_WITH_ARROW_HC6
 import dj.dynamic.card.constant.DesignTypeConstants.SMALL_DISPLAY_CARD_HC1
 import dj.dynamic.card.model.api.Card_groups
 import dj.dynamic.card.model.api.Cards
+import dj.dynamic.card.util.ui.image.ImageUtils
 import java.lang.ref.WeakReference
 
 class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_groups) :
@@ -78,7 +83,7 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
             "HC1" -> {
                 val viewHolder = holder as SmallDisplayCardHC1
                 loadImageFromUrl(
-                    cardGroupsList[position].icon.image_url ?: "", viewHolder.leftImageInHC1
+                    cardGroupsList[position].icon?.image_url ?: "", viewHolder.leftImageInHC1
                 )
                 viewHolder.titleTextHC1.text = cardGroupsList[position].title
                 if (!TextUtils.isEmpty(cardGroupsList[position].description)) {
@@ -95,10 +100,29 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                     if (cardGroups.is_scrollable) ViewGroup.LayoutParams.WRAP_CONTENT
                     else ViewGroup.LayoutParams.MATCH_PARENT
             }
+            "HC5" -> {
+                val viewHolder = holder as ImageCardHC5
+                loadImageFromUrl(
+                    cardGroupsList[position].icon?.image_url ?: "",
+                    viewHolder.leftImageInHC5
+                )
+                viewHolder.titleTextHC5.text = cardGroupsList[position].title
+                viewHolder.descriptionTextHC5.text = cardGroupsList[position].description
+//                weakActivityContext.get()?.let { activity ->
+//                    viewHolder.rootLayoutHC5.backgroundTintList =
+//                        getDrawableWithTint(activity, cardGroupsList[position].bg_image?.image_url)
+//                }
+                loadImageFromUrl(
+                    cardGroupsList[position].bg_image?.image_url, viewHolder.backgroundImageViewHC5
+                )
+                viewHolder.coloredRectangleHC5.setBackgroundColor(
+                    getColorInt(cardGroupsList[position].bg_color)
+                )
+            }
             "HC6" -> {
                 val viewHolder = holder as SmallCardWithArrowHc6
                 loadImageFromUrl(
-                    cardGroupsList[position].icon.image_url ?: "",
+                    cardGroupsList[position].icon?.image_url ?: "",
                     viewHolder.imageInSmallCardWithArrow
                 )
                 viewHolder.textSmallCardWithArrow.text = cardGroupsList[position].title
@@ -107,6 +131,14 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                         getDrawableWithTint(activity, cardGroupsList[position].bg_color)
                 }
             }
+        }
+    }
+
+    private fun getColorInt(bgColor: String?): Int {
+        return if (!TextUtils.isEmpty(bgColor)) {
+            Color.parseColor(bgColor)
+        } else {// default
+            R.color.white
         }
     }
 
@@ -122,9 +154,33 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
         }
     }
 
-    private fun loadImageFromUrl(imageUrl: String, imageView: ImageView) {
-        Picasso.get().load(imageUrl).placeholder(R.drawable.ic_outline_image_24)
-            .error(R.drawable.ic_baseline_warning_24).into(imageView)
+    private fun loadImageFromUrl(imageUrl: String?, imageView: ImageView) {
+        if (TextUtils.isEmpty(imageUrl)) {// remove the existing bitmap if image is null or empty
+            imageView.visibility = View.GONE
+            imageView.setImageDrawable(null)
+        } else {
+            imageView.visibility = View.VISIBLE
+            val target: Target = object : Target {
+                override fun onBitmapLoaded(bitmap: Bitmap, from: LoadedFrom) {
+                    imageView.setImageDrawable(
+                        weakActivityContext.get()?.let { activity ->
+                            ImageUtils.getRoundedBitmapDrawable(
+                                bitmap,
+                                activity.resources?.getDimension(R.dimen.card_corner_radius),
+                                activity
+                            )
+                        }
+                    )
+                }
+
+                override fun onBitmapFailed(e: Exception, errorDrawable: Drawable) {
+                }
+
+                override fun onPrepareLoad(placeHolderDrawable: Drawable) {}
+            }
+            Picasso.get().load(imageUrl).placeholder(R.drawable.ic_outline_image_24)
+                .error(R.drawable.ic_baseline_warning_24).into(target)
+        }
     }
 
     class SmallDisplayCardHC1(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -137,7 +193,13 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
     class BigDisplayCardHC3(itemView: View) : RecyclerView.ViewHolder(itemView) {//TODO
     }
 
-    class ImageCardHC5(itemView: View) : RecyclerView.ViewHolder(itemView) {//TODO
+    class ImageCardHC5(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var rootLayoutHC5: RelativeLayout = itemView.findViewById(R.id.rootLayoutHC5)
+        var backgroundImageViewHC5: ImageView = itemView.findViewById(R.id.backgroundImageViewHC5)
+        var leftImageInHC5: ImageView = itemView.findViewById(R.id.leftImageInHC5)
+        var titleTextHC5: TextView = itemView.findViewById(R.id.titleTextHC5)
+        var descriptionTextHC5: TextView = itemView.findViewById(R.id.descriptionTextHC5)
+        var coloredRectangleHC5: View = itemView.findViewById(R.id.coloredRectangleHC5)
     }
 
     class SmallCardWithArrowHc6(itemView: View) : RecyclerView.ViewHolder(itemView) {

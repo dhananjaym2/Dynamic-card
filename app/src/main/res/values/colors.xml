@@ -11,4 +11,7 @@
     <color name="verticalRecyclerBackground">#F7F6F3</color>
     <color name="neutralMessageColor">#929292</color>
     <color name="medium_black">#B91B1B1E</color>
+    <color name="dark_brown">#571C32</color>
+    <color name="medium_brown">#D6571C32</color>
+    <color name="coloredRectangleHC5">#F5A546</color>
 </resources>
