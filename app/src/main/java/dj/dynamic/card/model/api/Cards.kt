@@ -10,7 +10,7 @@ data class Cards(
     @SerializedName("formatted_title") val formatted_title: Formatted_text,
     @SerializedName("description") val description: String?,
     @SerializedName("formatted_description") val formatted_description: Formatted_text,
-    @SerializedName("icon") val icon: Icon,
+    @SerializedName("icon") val icon: Icon?,
     @SerializedName("url") val url: String?,
     @SerializedName("bg_image") val bg_image: Icon?,
     @SerializedName("bg_color") val bg_color: String?,
