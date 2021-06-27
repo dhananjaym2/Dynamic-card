@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -26,6 +27,7 @@ import dj.dynamic.card.constant.DesignTypeConstants.DYNAMIC_WIDTH_CARD_HC9
 import dj.dynamic.card.constant.DesignTypeConstants.IMAGE_CARD_HC5
 import dj.dynamic.card.constant.DesignTypeConstants.SMALL_CARD_WITH_ARROW_HC6
 import dj.dynamic.card.constant.DesignTypeConstants.SMALL_DISPLAY_CARD_HC1
+import dj.dynamic.card.model.api.CallToAction
 import dj.dynamic.card.model.api.Card_groups
 import dj.dynamic.card.model.api.Cards
 import dj.dynamic.card.util.ui.image.ImageUtils
@@ -79,12 +81,13 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (cardGroups.design_type) {//TODO read and show formatted text
+        when (cardGroups.design_type) {
             "HC1" -> {
                 val viewHolder = holder as SmallDisplayCardHC1
                 loadImageFromUrl(
                     cardGroupsList[position].icon?.image_url ?: "", viewHolder.leftImageInHC1
                 )
+                //TODO read and show formatted text
                 viewHolder.titleTextHC1.text = cardGroupsList[position].title
                 if (!TextUtils.isEmpty(cardGroupsList[position].description)) {
                     viewHolder.descriptionTextHC1.visibility = View.VISIBLE
@@ -99,6 +102,29 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                 viewHolder.rootLayoutHC1.layoutParams.width =
                     if (cardGroups.is_scrollable) ViewGroup.LayoutParams.WRAP_CONTENT
                     else ViewGroup.LayoutParams.MATCH_PARENT
+            }
+            "HC3" -> {
+                val viewHolder = holder as BigDisplayCardHC3
+                loadImageFromUrl(
+                    cardGroupsList[position].icon?.image_url ?: "",
+                    viewHolder.leftTopImageInHC3
+                )
+                viewHolder.titleTextHC3.text = cardGroupsList[position].title
+                viewHolder.descriptionTextHC3.text = cardGroupsList[position].description
+                for (buttonAction: CallToAction in cardGroupsList[position].cta!!) {
+//                    viewHolder.actionButtonHC3.textColors = buttonAction.text_color
+                    viewHolder.actionButtonHC3.text = buttonAction.text
+                    weakActivityContext.get()?.let { activity ->
+                        viewHolder.actionButtonHC3.backgroundTintList =
+                            getDrawableWithTint(activity, buttonAction.bg_color)
+                    }
+                }
+                loadImageFromUrl(
+                    cardGroupsList[position].bg_image?.image_url, viewHolder.backgroundImageViewHC3
+                )
+                viewHolder.rootLayoutHC3.setBackgroundColor(
+                    getColorInt(cardGroupsList[position].bg_color)
+                )
             }
             "HC5" -> {
                 val viewHolder = holder as ImageCardHC5
@@ -190,7 +216,15 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
         var descriptionTextHC1: TextView = itemView.findViewById(R.id.descriptionTextHC1)
     }
 
-    class BigDisplayCardHC3(itemView: View) : RecyclerView.ViewHolder(itemView) {//TODO
+    class BigDisplayCardHC3(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var rootLayoutHC3: RelativeLayout = itemView.findViewById(R.id.rootLayoutHC3)
+        var backgroundImageViewHC3: ImageView = itemView.findViewById(R.id.backgroundImageViewHC3)
+        var leftTopImageInHC3: ImageView = itemView.findViewById(R.id.backgroundImageViewHC3)
+        var titleTextHC3: TextView = itemView.findViewById(R.id.titleTextHC3)
+        var descriptionTextHC3: TextView = itemView.findViewById(R.id.descriptionTextHC3)
+
+        //TODO array of buttons
+        var actionButtonHC3: Button = itemView.findViewById(R.id.actionButtonHC3)
     }
 
     class ImageCardHC5(itemView: View) : RecyclerView.ViewHolder(itemView) {

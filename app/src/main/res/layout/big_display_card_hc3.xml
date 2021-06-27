@@ -1,5 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayoutHC3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/backgroundImageViewHC3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_background_rounded_corners"
+        android:contentDescription="@string/imageContentDescription" />
+
+    <ImageView
+        android:id="@+id/leftTopImageInHC3"
+        android:layout_width="@dimen/leftImageWidthHC3"
+        android:layout_height="@dimen/leftImageHeightHC3"
+        android:layout_marginStart="@dimen/horizontalMarginOfLeftTopImageFromCard"
+        android:layout_marginTop="@dimen/topMarginOfLeftTopImageFromCard"
+        android:contentDescription="@string/imageContentDescription"
+        tools:src="@drawable/ic_outline_image_24" />
+
+    <TextView
+        android:id="@+id/titleTextHC3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/leftTopImageInHC3"
+        android:layout_marginStart="@dimen/horizontalMarginOfLeftTopImageFromCard"
+        android:layout_marginTop="@dimen/marginFromLeftTopImageToTitleText"
+        android:layout_marginEnd="@dimen/horizontalMarginOfContentFromCard"
+        android:gravity="start"
+        android:textColor="@color/dark_brown"
+        android:textSize="@dimen/titleTextSizeHC3"
+        tools:text="titleTextHC3" />
+
+    <TextView
+        android:id="@+id/descriptionTextHC3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleTextHC3"
+        android:layout_marginStart="@dimen/horizontalMarginOfLeftTopImageFromCard"
+        android:layout_marginTop="@dimen/spacingTitleAndDescriptionHC3"
+        android:layout_marginEnd="@dimen/horizontalMarginEndOfDescriptionFromCardHC3"
+        android:gravity="start"
+        android:textColor="@color/medium_brown"
+        android:textSize="@dimen/descriptionTextSizeHC3"
+        tools:text="descriptionTextHC3" />
+
+    <Button
+        android:id="@+id/actionButtonHC3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionTextHC3"
+        android:layout_marginStart="@dimen/horizontalMarginOfLeftTopImageFromCard"
+        android:layout_marginTop="@dimen/spacingBetweenDescriptionAndButtonHC5"
+        android:layout_marginBottom="@dimen/horizontalMarginOfContentFromCard"
+        android:background="@drawable/button_background_rounded_corners"
+        android:backgroundTint="@null"
+        android:paddingStart="@dimen/buttonPaddingHorizontalHC3"
+        android:paddingTop="@dimen/buttonPaddingVerticalHC3"
+        android:paddingEnd="@dimen/buttonPaddingHorizontalHC3"
+        android:paddingBottom="@dimen/buttonPaddingVerticalHC3"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        tools:text="Action" />
 </RelativeLayout>
