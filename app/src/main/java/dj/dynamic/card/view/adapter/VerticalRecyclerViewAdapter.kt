@@ -57,8 +57,10 @@ class VerticalRecyclerViewAdapter(
         if (!cardGroups[position].is_scrollable &&
             fullScreenWidthCardTypes.contains(cardGroups[position].design_type)
         ) {
-            val snapHelper = PagerSnapHelper()
-            snapHelper.attachToRecyclerView(view.horizontalRecyclerView)
+            if (view.horizontalRecyclerView.onFlingListener == null) {
+                val snapHelper = PagerSnapHelper()
+                snapHelper.attachToRecyclerView(view.horizontalRecyclerView)
+            }
         }
 
         weakActivityContext.get()?.let { activityContext ->
