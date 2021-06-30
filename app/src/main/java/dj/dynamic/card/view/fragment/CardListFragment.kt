@@ -57,18 +57,34 @@ class CardListFragment : Fragment() {
     }
 
     private fun setupRecyclerViewAdapter(listFromApi: CardGroupApiResponse?) {
-        if (listFromApi == null || listFromApi.card_groups.isEmpty()) {
-            messageTextViewOnList.text = getString(R.string.loadingFinishedNoContentToShow)
-            messageTextViewOnList.visibility = View.VISIBLE
+        if (listFromApi == null) {
+            apiFailedErrorMessage()
+        } else if (listFromApi.card_groups.isEmpty()) {
+            cardsListEmptyMessage()
         } else {
             messageTextViewOnList.visibility = View.GONE
+            verticalRecyclerView.visibility = View.VISIBLE
             activity?.let { activityContext ->
                 listFromApi.card_groups.let { listData ->
                     recyclerAdapter = VerticalRecyclerViewAdapter(activityContext, listData)
                     verticalRecyclerView.adapter = recyclerAdapter
-                }//TODO error handling
+                }
             }
         }
+    }
+
+    private fun cardsListEmptyMessage() {
+        verticalRecyclerView.visibility = View.GONE
+        messageTextViewOnList.text = getString(R.string.loadingFinishedNoContentToShow)
+        messageTextViewOnList.setTextColor(resources.getColor(R.color.neutralMessageColor, null))
+        messageTextViewOnList.visibility = View.VISIBLE
+    }
+
+    private fun apiFailedErrorMessage() {
+        verticalRecyclerView.visibility = View.GONE
+        messageTextViewOnList.text = getString(R.string.errorMessage)
+        messageTextViewOnList.setTextColor(resources.getColor(R.color.errorMessageColor, null))
+        messageTextViewOnList.visibility = View.VISIBLE
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

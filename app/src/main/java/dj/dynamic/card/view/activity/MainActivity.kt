@@ -1,6 +1,5 @@
 package dj.dynamic.card.view.activity
 
-import dj.dynamic.card.model.api.CardGroupApiResponse
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import dj.dynamic.card.R
-import dj.dynamic.card.constant.BundleConstants
+import dj.dynamic.card.constant.BundleConstants.cardGroupDataBundleKey
+import dj.dynamic.card.model.api.CardGroupApiResponse
 import dj.dynamic.card.view.fragment.CardListFragment
 import dj.dynamic.card.viewmodel.MainActivityViewModel
 
@@ -47,14 +47,13 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         })
     }
 
-    private fun loadFragment(listCardGroupApiResponse: CardGroupApiResponse) {
+    private fun loadFragment(listCardGroupApiResponse: CardGroupApiResponse?) {
         val listFrag = CardListFragment.newInstance()
-        listFrag.arguments = bundleOf(
-            Pair<String, Any>(BundleConstants.cardGroupDataBundleKey, listCardGroupApiResponse)
-        )
-        //val bundle = Bundle()
-        //bundle.putParcelable(AppConstants.cardGroupDataKey, listCardGroupApiResponse)
-        //listFrag.arguments = bundle
+        if (listCardGroupApiResponse != null) {
+            listFrag.arguments = bundleOf(
+                Pair<String, Any>(cardGroupDataBundleKey, listCardGroupApiResponse)
+            )
+        }
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.containerFrameLayout, listFrag)
