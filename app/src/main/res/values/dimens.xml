@@ -36,4 +36,5 @@
     <dimen name="buttonPaddingHorizontalHC3">44dp</dimen>
     <dimen name="spacingBetweenDescriptionAndButtonHC5">29dp</dimen>
     <dimen name="button_corner_radius">6dp</dimen>
+    <dimen name="heightOfCardHC9">195dp</dimen>
 </resources>

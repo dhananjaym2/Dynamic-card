@@ -30,6 +30,7 @@ import dj.dynamic.card.constant.DesignTypeConstants.SMALL_DISPLAY_CARD_HC1
 import dj.dynamic.card.model.api.CallToAction
 import dj.dynamic.card.model.api.Card_groups
 import dj.dynamic.card.model.api.Cards
+import dj.dynamic.card.util.ui.dimen.DimensionUtil
 import dj.dynamic.card.util.ui.image.ImageUtils
 import java.lang.ref.WeakReference
 
@@ -85,7 +86,7 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
             "HC1" -> {
                 val viewHolder = holder as SmallDisplayCardHC1
                 loadImageFromUrl(
-                    cardGroupsList[position].icon?.image_url ?: "", viewHolder.leftImageInHC1
+                    cardGroupsList[position].icon?.image_url ?: "", viewHolder.leftImageInHC1, 1.0
                 )
                 //TODO read and show formatted text
                 viewHolder.titleTextHC1.text = cardGroupsList[position].title
@@ -107,7 +108,8 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                 val viewHolder = holder as BigDisplayCardHC3
                 loadImageFromUrl(
                     cardGroupsList[position].icon?.image_url ?: "",
-                    viewHolder.leftTopImageInHC3
+                    viewHolder.leftTopImageInHC3,
+                    1.0
                 )
                 viewHolder.titleTextHC3.text = cardGroupsList[position].title
                 viewHolder.descriptionTextHC3.text = cardGroupsList[position].description
@@ -120,7 +122,9 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                     }
                 }
                 loadImageFromUrl(
-                    cardGroupsList[position].bg_image?.image_url, viewHolder.backgroundImageViewHC3
+                    cardGroupsList[position].bg_image?.image_url,
+                    viewHolder.backgroundImageViewHC3,
+                    1.0
                 )
                 viewHolder.rootLayoutHC3.setBackgroundColor(
                     getColorInt(cardGroupsList[position].bg_color)
@@ -130,7 +134,8 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                 val viewHolder = holder as ImageCardHC5
                 loadImageFromUrl(
                     cardGroupsList[position].icon?.image_url ?: "",
-                    viewHolder.leftImageInHC5
+                    viewHolder.leftImageInHC5,
+                    1.0
                 )
                 viewHolder.titleTextHC5.text = cardGroupsList[position].title
                 viewHolder.descriptionTextHC5.text = cardGroupsList[position].description
@@ -139,7 +144,9 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
 //                        getDrawableWithTint(activity, cardGroupsList[position].bg_image?.image_url)
 //                }
                 loadImageFromUrl(
-                    cardGroupsList[position].bg_image?.image_url, viewHolder.backgroundImageViewHC5
+                    cardGroupsList[position].bg_image?.image_url,
+                    viewHolder.backgroundImageViewHC5,
+                    1.0
                 )
                 viewHolder.coloredRectangleHC5.setBackgroundColor(
                     getColorInt(cardGroupsList[position].bg_color)
@@ -149,13 +156,33 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
                 val viewHolder = holder as SmallCardWithArrowHc6
                 loadImageFromUrl(
                     cardGroupsList[position].icon?.image_url ?: "",
-                    viewHolder.imageInSmallCardWithArrow
+                    viewHolder.imageInSmallCardWithArrow,
+                    1.0
                 )
                 viewHolder.textSmallCardWithArrow.text = cardGroupsList[position].title
                 weakActivityContext.get()?.let { activity ->
                     viewHolder.rootLayoutHC6.backgroundTintList =
                         getDrawableWithTint(activity, cardGroupsList[position].bg_color)
                 }
+            }
+            "HC9" -> {
+                val viewHolder = holder as DynamicWidthCardHC9
+                weakActivityContext.get()?.let {
+                    viewHolder.backgroundImageViewHC9.layoutParams.width =
+                        DimensionUtil().convertDpToPixel(
+                            it,
+                            (cardGroupsList[position].bg_image?.aspect_ratio?.times(cardGroups.height))?.toInt()
+                                ?: 100
+                        ).toInt()
+
+                    viewHolder.backgroundImageViewHC9.layoutParams.height =
+                        DimensionUtil().convertDpToPixel(it, cardGroups.height).toInt()
+                }
+                loadImageFromUrl(
+                    cardGroupsList[position].bg_image?.image_url,
+                    viewHolder.backgroundImageViewHC9,
+                    cardGroupsList[position].bg_image?.aspect_ratio
+                )
             }
         }
     }
@@ -180,7 +207,11 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
         }
     }
 
-    private fun loadImageFromUrl(imageUrl: String?, imageView: ImageView) {
+    private fun loadImageFromUrl(
+        imageUrl: String?,
+        imageView: ImageView,
+        aspect_ratio: Double?
+    ) {
         if (TextUtils.isEmpty(imageUrl)) {// remove the existing bitmap if image is null or empty
             imageView.visibility = View.GONE
             imageView.setImageDrawable(null)
@@ -244,11 +275,11 @@ class HorizontalRecyclerView(activityContext: Activity, var cardGroups: Card_gro
             itemView.findViewById(R.id.textSmallCardWithArrow)
     }
 
-    class DynamicWidthCardHC9(itemView: View) : RecyclerView.ViewHolder(itemView) {//TODO
+    class DynamicWidthCardHC9(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val backgroundImageViewHC9: ImageView = itemView.findViewById(R.id.backgroundImageViewHC9)
     }
 
-    class UnknownCard(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    }
+    class UnknownCard(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun getItemViewType(position: Int): Int {
         when (cardGroups.design_type) {
